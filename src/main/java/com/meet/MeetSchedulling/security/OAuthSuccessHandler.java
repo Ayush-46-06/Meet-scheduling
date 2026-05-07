@@ -64,6 +64,6 @@ public class OAuthSuccessHandler implements AuthenticationSuccessHandler {
 
         tokenRepository.save(token);
 
-        response.sendRedirect("/user");
+        response.sendRedirect("http://localhost:3000");
     }
 }

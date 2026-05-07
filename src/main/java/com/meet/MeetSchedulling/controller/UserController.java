@@ -22,7 +22,6 @@ public class UserController {
     @Autowired
     private GoogleTokenRepository tokenRepository;
 
-
     @GetMapping("/user")
     public Object user(@AuthenticationPrincipal OAuth2User principal, OAuth2AuthenticationToken authentication) {
         if (principal == null) {

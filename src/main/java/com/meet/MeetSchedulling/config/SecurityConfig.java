@@ -16,10 +16,10 @@ public class SecurityConfig {
    @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-        .csrf(csrf -> csrf.disable()) // 🔥 important
+        .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/", "/login**").permitAll()
-            .requestMatchers("/api/**").authenticated() // 🔥 secure karo
+            .requestMatchers("/api/**").authenticated()
             .anyRequest().authenticated()
         )
         .oauth2Login(oauth -> oauth
@@ -27,7 +27,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         )
         .logout(logout -> logout
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
+                .logoutSuccessUrl("http://localhost:3000")
             .invalidateHttpSession(true)
             .clearAuthentication(true)
             .deleteCookies("JSESSIONID")

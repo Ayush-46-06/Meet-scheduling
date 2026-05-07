@@ -37,4 +37,13 @@ public class MeetingController {
         return ResponseEntity.ok().body(
                 "Meeting created successfully: " + meetLink);
     }
+
+    @GetMapping("/my-meetings")
+    public ResponseEntity<?> getMyMeetings(OAuth2AuthenticationToken authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(401).body("User not authenticated");
+        }
+        String email = authentication.getPrincipal().getAttribute("email");
+        return ResponseEntity.ok(meetingService.getMeetingsByEmail(email));
+    }
 }

@@ -13,6 +13,9 @@ public class SecurityConfig {
     @Autowired
     private OAuthSuccessHandler successHandler;
 
+    @org.springframework.beans.factory.annotation.Value("${frontend.url}")
+    private String frontendUrl;
+
    @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
@@ -27,7 +30,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         )
         .logout(logout -> logout
             .logoutUrl("/logout")
-                .logoutSuccessUrl("http://localhost:3000")
+                .logoutSuccessUrl(frontendUrl)
             .invalidateHttpSession(true)
             .clearAuthentication(true)
             .deleteCookies("JSESSIONID")

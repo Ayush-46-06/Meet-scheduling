@@ -27,6 +27,9 @@ public class OAuthSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     private GoogleTokenRepository tokenRepository;
 
+    @org.springframework.beans.factory.annotation.Value("${frontend.url}")
+    private String frontendUrl;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
@@ -64,6 +67,6 @@ public class OAuthSuccessHandler implements AuthenticationSuccessHandler {
 
         tokenRepository.save(token);
 
-        response.sendRedirect("http://localhost:3000");
+        response.sendRedirect(frontendUrl);
     }
 }

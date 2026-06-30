@@ -26,6 +26,9 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .requestMatchers("/api/**").authenticated()
             .anyRequest().authenticated()
         )
+        .exceptionHandling(exceptions -> exceptions
+            .authenticationEntryPoint(new org.springframework.security.web.authentication.HttpStatusEntryPoint(org.springframework.http.HttpStatus.UNAUTHORIZED))
+        )
         .oauth2Login(oauth -> oauth
             .successHandler(successHandler)
             .failureHandler((request, response, exception) -> {

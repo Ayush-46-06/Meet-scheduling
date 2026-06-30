@@ -27,6 +27,13 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         )
         .oauth2Login(oauth -> oauth
             .successHandler(successHandler)
+            .failureHandler((request, response, exception) -> {
+                String errorMsg = exception.getMessage();
+                if (errorMsg == null) {
+                    errorMsg = "Unknown error";
+                }
+                response.sendRedirect("/login?error=" + java.net.URLEncoder.encode(errorMsg, "UTF-8"));
+            })
         )
         .logout(logout -> logout
             .logoutUrl("/logout")
